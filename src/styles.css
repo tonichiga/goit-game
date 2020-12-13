@@ -39,6 +39,17 @@ body {
   width: 80px;
   height: 30px;
 }
+/* .game__link::after {
+  position: absolute;
+  background-image: "./images/pressme.png";
+  width: 40px;
+  height: 40px;
+  z-index: 1000;
+} */
+.game__img {
+  position: absolute;
+  z-index: 1000;
+}
 .btn-wrapper {
   text-align: center;
   margin-bottom: 20px;

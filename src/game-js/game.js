@@ -4,23 +4,55 @@ const refs = {
   btnStop: document.querySelector(".game-btn__stop"),
 };
 
-refs.container.textContent = "hello";
+refs.container.textContent;
 
-let coords = refs.container.getBoundingClientRect();
+const coords = refs.container.getBoundingClientRect();
 
-refs.container.addEventListener("click", (e) => {
-  e.preventDefault();
-});
+let id = null;
 
+const timerPopUp = () => {
+  id = setInterval(() => {
+    randomPopUp();
+  }, 4000);
+};
+
+const clear = () => clearInterval(id);
 const randomPopUp = () => {
-  let pageY = Math.floor(Math.random() * (450 - 1) + 1); // top
-  let pageX = Math.floor(Math.random() * (750 - 1) + 1); // left
+  const pageY = Math.floor(Math.random() * (450 - 1) + 1); // top
+  const pageX = Math.floor(Math.random() * (750 - 1) + 1); // left
   refs.container.style.left = pageX + "px";
   refs.container.style.top = pageY + "px";
 };
+const nextPopUp = () => {
+  const pageY = Math.floor(Math.random() * (450 - 1) + 1); // top
+  const pageX = Math.floor(Math.random() * (750 - 1) + 1); // left
+  refs.container.style.left = pageX + "px";
+  refs.container.style.top = pageY + "px";
+};
+refs.btnStart.addEventListener("click", (e) => {
+  if (e.currentTarget.nodeName !== "BUTTON") {
+    return;
+  }
+  timerPopUp();
 
-const timerPopUp = setInterval(() => {
-  randomPopUp();
-}, 1000);
-clearTimeout(timerPopUp);
-console.log();
+  refs.btnStop.addEventListener("click", (e) => {
+    if (e.currentTarget.nodeName !== "BUTTON") {
+      return;
+    }
+    clear();
+  });
+
+  refs.container.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Проверка на нажатие по объекту
+
+    if (e.currentTarget.nodeName === "A") {
+      if (id !== null) {
+        clearTimeout(id);
+      }
+      nextPopUp();
+      timerPopUp();
+    }
+  });
+});
